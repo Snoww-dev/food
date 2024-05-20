@@ -14,7 +14,7 @@ class _FoodPageBodyState extends State<FoodPageBody>{
   PageController pageController =PageController(viewportFraction: 0.85);
   var _currPageValue=0.0;
   double _scaleFactor = 0.8;
-
+  double  _height = 220;
   //Sử dụng PageController để theo dõi và phản ứng lại với sự thay đổi của trang
   // Khi thay đổi trang,phương thức listener sẽ được gọi, giá trị của trang hiện tại sẽ được cập nhật vào _currPageValue và UI sẽ được làm mới thông qua setState
   @override
@@ -48,12 +48,33 @@ class _FoodPageBodyState extends State<FoodPageBody>{
     );
   }
   Widget _buildPageItem(int index){
-    Matrix4 matrix = new Matrix4.identity();   //Biến đổi ma trận 4x4
+    Matrix4 matrix = new Matrix4.identity();   //Biến đổi ma trận 4x4, biến đổi kích thước và vị trí
     if(index ==_currPageValue.floor()){
       var currScale = 1-(_currPageValue-index)*(1-_scaleFactor);   //currScale được tính toán để xác định tỷ lệ của trang, tạo hiệu ứng thu nhỏ hoặc phóng to
+      var currTrans = _height*(1-currScale)/2;
+      matrix = Matrix4.diagonal3Values(1, currScale, 1)..setTranslationRaw(0,currTrans,0);
+
+    }else if(index == _currPageValue.floor()+1){
+      var currScale = _scaleFactor+(_currPageValue-index+1)*(1-_scaleFactor);
+      var currTrans = _height*(1-currScale)/2;
+      matrix = Matrix4.diagonal3Values(1, currScale, 1);
+      matrix = Matrix4.diagonal3Values(1, currScale, 1)..setTranslationRaw(0,currTrans,0);
+
+    }else if(index == _currPageValue.floor()-1){
+      var currScale = 1-(_currPageValue-index)*(1-_scaleFactor);
+      var currTrans = _height*(1-currScale)/2;
+      matrix = Matrix4.diagonal3Values(1, currScale, 1);
+      matrix = Matrix4.diagonal3Values(1, currScale, 1)..setTranslationRaw(0,currTrans,0);
+
+    }else{
+      var currScale = 0.8;
+      matrix = Matrix4.diagonal3Values(1, currScale, 1)..setTranslationRaw(0, _height*(1-_scaleFactor)/2,1);
+
     }
 
-    return  Stack(  // Ngăn xếp
+    return  Transform(
+      transform: matrix,
+      child : Stack(  // Ngăn xếp
       children: [
           Container(
             height : 220,
@@ -75,7 +96,7 @@ class _FoodPageBodyState extends State<FoodPageBody>{
               height : 120,
               margin:  EdgeInsets.only(left: 30, right: 30, bottom: 15),
               decoration: BoxDecoration( // Bán kính đường viền
-                borderRadius: BorderRadius.circular(30),
+                borderRadius: BorderRadius.circular(20),
                 color: Colors.white,
             ),
             child: Container(
@@ -120,6 +141,7 @@ class _FoodPageBodyState extends State<FoodPageBody>{
           ),
           )
       ],
+    ),
     );
   }
 }
