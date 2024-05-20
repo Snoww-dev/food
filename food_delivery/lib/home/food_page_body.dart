@@ -13,6 +13,26 @@ class FoodPageBody extends StatefulWidget {
 class _FoodPageBodyState extends State<FoodPageBody>{
   PageController pageController =PageController(viewportFraction: 0.85);
   var _currPageValue=0.0;
+  double _scaleFactor = 0.8;
+
+  //Sử dụng PageController để theo dõi và phản ứng lại với sự thay đổi của trang
+  // Khi thay đổi trang,phương thức listener sẽ được gọi, giá trị của trang hiện tại sẽ được cập nhật vào _currPageValue và UI sẽ được làm mới thông qua setState
+  @override
+  void initState(){
+    super.initState();
+    pageController.addListener((){
+      setState(() {
+        _currPageValue = pageController.page!;
+        //print ("Current value is "+ _currPageValue.toString());
+      });
+    });
+  }
+
+  //Dọn dẹp dữ liệu khi widget không còn cần thiết nữa.
+  @override
+  void dispose(){
+    pageController.dispose();
+  }
 
   @override
   Widget build(BuildContext context){
@@ -28,6 +48,11 @@ class _FoodPageBodyState extends State<FoodPageBody>{
     );
   }
   Widget _buildPageItem(int index){
+    Matrix4 matrix = new Matrix4.identity();   //Biến đổi ma trận 4x4
+    if(index ==_currPageValue.floor()){
+      var currScale = 1-(_currPageValue-index)*(1-_scaleFactor);   //currScale được tính toán để xác định tỷ lệ của trang, tạo hiệu ứng thu nhỏ hoặc phóng to
+    }
+
     return  Stack(  // Ngăn xếp
       children: [
           Container(
