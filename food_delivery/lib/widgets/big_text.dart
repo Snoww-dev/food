@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:food_delivery/utils/dimensions.dart';
 
-class BigTest extends StatelessWidget {
+class BigText extends StatelessWidget {
   Color? color;
   final String text;
   double size;
   TextOverflow overFlow;
-  BigTest({Key? key, this.color = const  Color.fromARGB(255, 4, 1, 15),
+  BigText({Key? key, this.color = const  Color.fromARGB(255, 4, 1, 15),
             required this.text,
-            this.size  = 20,
+            this.size  = 0,
             this.overFlow = TextOverflow.ellipsis
             }) : super(key: key);
 
@@ -20,7 +21,7 @@ class BigTest extends StatelessWidget {
         style : TextStyle(
           fontFamily: 'Roboto',
           color: color,
-          fontSize: size,
+          fontSize: size==0?Dimensions.font20:size,
           fontWeight: FontWeight.w400,
         )
     );
