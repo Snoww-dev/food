@@ -40,6 +40,7 @@ class _FoodPageBodyState extends State<FoodPageBody>{
   Widget build(BuildContext context){
     return Column(
       children: [
+        //Slider section
         Container(
         // color: Colors.redAccent,
         height: Dimensions.pageView,
@@ -50,6 +51,7 @@ class _FoodPageBodyState extends State<FoodPageBody>{
           return _buildPageItem(position);
         }),
       ),
+      //Dots
       new DotsIndicator(
         dotsCount: 5,
         position: _currPageValue.floor(),
@@ -60,6 +62,28 @@ class _FoodPageBodyState extends State<FoodPageBody>{
           activeShape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
         ),
       ),
+      //Popular text
+      SizedBox(height: Dimensions.height30,),
+      Container(
+        margin: EdgeInsets.only(left: Dimensions.width30),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: [
+            BigText(text: "Popular"),
+            SizedBox(width: Dimensions.width10,),
+            Container(
+              margin: const EdgeInsets.only(bottom: 3),
+              child: BigText(text: ".",color: Colors.black26,),
+            ),
+            SizedBox(width: Dimensions.width10,),
+            Container(
+              margin: const EdgeInsets.only(bottom: 2),
+              child: SmallText(text: "Food pairing",),
+            )
+          ],
+        ),
+      )
+      //
       ],
     );
   }
@@ -110,7 +134,7 @@ class _FoodPageBodyState extends State<FoodPageBody>{
             alignment: Alignment.bottomCenter,
             child : Container(
               height : Dimensions.pageViewTextContainer,
-              margin:  EdgeInsets.only(left: Dimensions.width30, right: Dimensions.width30, bottom: Dimensions.width30),
+              margin:  EdgeInsets.only(left: Dimensions.width30, right: Dimensions.width30, bottom: Dimensions.height30),
               decoration: BoxDecoration( // Bán kính đường viền
                 borderRadius: BorderRadius.circular(Dimensions.radius20),
                 color: Colors.white,
