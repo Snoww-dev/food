@@ -11,7 +11,7 @@ class AppColors{
   static final Color signColor = const Color(0xFFa9a29f);
   static final Color titleColor = const Color(0xFF5c524f);
   static final Color mainBlackColor =const Color.fromARGB(255, 6, 1, 27);
-//
-  static final Color yelorwColor = const Color.fromARGB(255, 105, 38, 109);
+
+  static final Color yelowColor = Color.fromARGB(255, 194, 154, 197);
 
 }
