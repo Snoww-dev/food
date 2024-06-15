@@ -36,7 +36,7 @@ class AppColumn extends StatelessWidget {
               SizedBox(width: 10),
               SmallText(text: "1287"),
               SizedBox(width: 10),
-              SmallText(text: "comments"),
+              SmallText(text: "bình luận"),
             ],
           ),
           SizedBox(height: Dimensions.height20),
@@ -45,7 +45,7 @@ class AppColumn extends StatelessWidget {
             children: [
               IconAndTextWidget(
                 icon: Icons.circle_sharp,
-                text: "Normal",
+                text: "Bình thường",
                 iconColor: AppColors.iconColor1,
               ),
               IconAndTextWidget(
