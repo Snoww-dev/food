@@ -4,22 +4,41 @@
 YUMHUB là một ứng dụng tập trung vào các dịch vụ liên quan đến đồ ăn nhanh, nơi mà khách hàng thoải mãi lựa chọn, đặt hàng và giao nhận đồ ăn tại nhà. Ứng dụng này không chỉ giúp quản lý việc bán đồ ăn mà còn tạo ra một trải nghiệm liền mạch cho người tiêu dùng.
 
 
-## Other Common Github Profile Sections
-👩‍💻 I'm currently working on...
 
-🧠 I'm currently learning...
+## Nội dung chính
 
-👯‍♀️ I'm looking to collaborate on...
+🍔 Home page (Hiển thị sản phẩm bật lên và sản phẩm được đề xuất)
 
-🤔 I'm looking for help with...
+🍗 Sign in and Sign up (Đăng ký bằng điện thoại di động với mã xác minh)
 
-💬 Ask me about...
+🍝 Shopping cart (Một giỏ hàng thực sự có chức năng thêm và xóa các mặt hàng một cách nhanh chóng)
 
-📫 How to reach me...
+🥬 Local cart history page (Sử dụng bộ nhớ cục bộ)
 
-😄 Pronouns...
+🍤 Server cart history page (Lịch sử giỏ hàng đồng bộ với cơ sở dữ liệu)
 
-⚡️ Fun fact...
+🍟 Profile page (Trang hồ sơ chứa thông tin cá nhân)
+
+🍕 Popular food page (Xem thực phẩm phổ biến, thêm hoặc xóa các mặt hàng khỏi giỏ hàng)
+
+🥙 Recommended food page (Xem thực phẩm được đề xuất, thêm hoặc xóa khỏi giỏ hàng)
+
+🌭 Order more function (Tính năng mới được thêm vào, giúp bạn đặt hàng)
+
+🥗 Go to sign in page (Xác thực trang đăng nhập trước khi bạn đặt hàng)
+
+🥪 Address page (Địa chỉ có xác thực trước khi bạn đặt hàng)
+
+🍖 Google map page (Để chọn vị trí và lưu địa chỉ)
+
+🥣 Search address (Tìm kiếm địa chỉ hoặc vị trí cho bản đồ google và lưu trong cơ sở dữ liệu)
+
+🌯 Backend (Phần phụ trợ để hiển thị thông tin người dùng và chi tiết đơn hàng)
+
+🍨 Creating new items (Bạn có thể tạo các mặt hàng thực phẩm mới)
+
+🥤 Paypal payment (Đồng bộ thanh toán Paypal với cơ sở dữ liệu)
+
 
 
 ## Cách cài ứng dụng
