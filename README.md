@@ -1,5 +1,5 @@
 
-# Đồ án giao đồ ăn YUMHUB
+# ĐỒ ÁN GIAO ĐỒ ĂN YUMHUB
 
 YUMHUB là một ứng dụng tập trung vào các dịch vụ liên quan đến đồ ăn nhanh, nơi mà khách hàng thoải mãi lựa chọn, đặt hàng và giao nhận đồ ăn tại nhà. Ứng dụng này không chỉ giúp quản lý việc bán đồ ăn mà còn tạo ra một trải nghiệm liền mạch cho người tiêu dùng.
 
@@ -21,6 +21,15 @@ YUMHUB là một ứng dụng tập trung vào các dịch vụ liên quan đế
 
 ⚡️ Fun fact...
 
+
+## Cách cài ứng dụng
+
+Install my-project with npm
+
+```bash
+  npm install my-project
+  cd my-project
+```
 
 ## Phân chia công việc
 
