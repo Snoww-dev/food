@@ -31,6 +31,7 @@ Install my-project with npm
   cd my-project
 ```
 
+
 ## Phân chia công việc
 
 #### Figma
@@ -42,11 +43,16 @@ Install my-project with npm
 | Họ tên | Id Github     | Công việc                |
 | :-------- | :------- | :------------------------- |
 | `Phạm Thanh Ánh Tuyết` | `snow-devv` | Trang chủ, Trang chi tiết sản phẩm |
+| `Phạm Minh Tú` | `minhtuzz` |  |
+| `Đồng Phước Đạt` | `Jackspiser` |  |
+| `An` | `an6423` | |
 
 #### Code
 
 | Họ tên | Id Github     | Công việc                       |
 | :-------- | :------- | :-------------------------------- |
 | `Phạm Thanh Ánh Tuyết` | `snow-devv` | Trang chủ, Trang chi tiết sản phẩm |
+
+
 
 
