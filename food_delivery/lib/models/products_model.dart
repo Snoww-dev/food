@@ -1,10 +1,11 @@
 class Product {
-  int? _totalSize;
-  int? _typeId;
-  int? _offset;
-  late List<ProductModel> _products;
-  List<ProductModel> get products => _products;
-
+  int? _totalSize;  // Tổng số lượng sản phẩm
+  int? _typeId;     // ID loại sản phẩm
+  int? _offset;     // Vị trí offset
+  late List<ProductModel> _products;  // Danh sách các sản phẩm
+  List<ProductModel> get products=>_products;  // Getter để truy cập danh sách sản phẩm
+  
+  // Constructor với các tham số bắt buộc
   Product({required totalSize, required typeId, required offset, required products}){
     this._totalSize=totalSize;
     this._typeId=typeId;
@@ -12,6 +13,7 @@ class Product {
     this._products=products;
   }
 
+  // Constructor để khởi tạo đối tượng từ JSON
   Product.fromJson(Map<String, dynamic> json){
     _totalSize = json['total_size'];
     _typeId  = json['type_id'];
@@ -19,11 +21,14 @@ class Product {
     if (json['products'] != null){
       _products = <ProductModel>[];
       json['products'].forEach((v){
-        _products!.add(ProductModel.fromJson(v));
+        _products.add(ProductModel.fromJson(v));
       });
     }
   }
 }
+
+//Thông tin chi tiết của từng sản phẩm.
+//Bao gồm : ID, tên, mô tả, giá cả, số sao, hình ảnh, vị trí, ngày tạo, ngày cập nhật và ID loại.
 class ProductModel {
   int? id;
   String? name;
@@ -36,6 +41,7 @@ class ProductModel {
   String?updatedAt;
   int? typeId;
 
+  // Constructor với các tham số tùy chọn
   ProductModel(
     {this.id,
     this.name,
@@ -48,6 +54,7 @@ class ProductModel {
     this.updatedAt,
     this.typeId});
 
+  // Constructor để khởi tạo đối tượng từ JSON
   ProductModel.fromJson(Map<String, dynamic> json){
     id = json['id'];
     name = json['name'];

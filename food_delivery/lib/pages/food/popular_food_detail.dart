@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:food_delivery/pages/home/main_food_page.dart';
 import 'package:food_delivery/utils/colors.dart';
 import 'package:food_delivery/utils/dimensions.dart';
 import 'package:food_delivery/widgets/app_column.dart';
 import 'package:food_delivery/widgets/app_icon.dart';
 import 'package:food_delivery/widgets/big_text.dart';
 import 'package:food_delivery/widgets/expandable_text_widget.dart';
+import 'package:get/get.dart';
 
 class PopularFoodDetail extends StatelessWidget {
   const PopularFoodDetail({Key? key}): super(key: key);
@@ -38,7 +40,12 @@ class PopularFoodDetail extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                AppIcon(icon: Icons.arrow_back_ios),
+                GestureDetector(
+                  onTap: (){
+                    Get.to(()=>MainFoodPage());
+                  },
+                  child:
+                  AppIcon(icon: Icons.arrow_back_ios)),
                 AppIcon(icon: Icons.shopping_cart_outlined)
               ],
             )),
@@ -62,7 +69,7 @@ class PopularFoodDetail extends StatelessWidget {
               children: [
                 AppColumn(text: "Cánh gà chiên xù",),
                 SizedBox(height: Dimensions.height20,),
-                BigText(text: "Các món ăn"),
+                BigText(text: "Đề xuất"),
                 SizedBox(height: Dimensions.height20,),
                 Expanded(child:SingleChildScrollView(child:  ExpandableTextWidget(text: "Cánh gà rán là món ăn phổ biến trong các bữa tiệc và các buổi tụ họp gia đình. Cánh gà sau khi được tẩm ướp kỹ lưỡng sẽ được lăn qua bột và chiên giòn. Với lớp da giòn tan bên ngoài và phần thịt mềm bên trong, cánh gà rán là món ăn yêu thích của nhiều người, thường được ăn kèm với các loại sốt như sốt BBQ, sốt phô mai, hay sốt chua ngọt."))),
               ],
@@ -102,7 +109,7 @@ class PopularFoodDetail extends StatelessWidget {
             ),
             Container(
               padding: EdgeInsets.only(top: Dimensions.height20, bottom: Dimensions.height20, left: Dimensions.width20, right: Dimensions.width20),
-              child: BigText(text: "\$10 | Thêm vào giỏ hàng", color: Colors.white),
+              child: BigText(text: "\10.000 | Thêm vào giỏ hàng", color: Colors.white),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(Dimensions.radius20),
                 color: AppColors.mainColor
