@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:food_delivery/controllers/popular_product_controller.dart';
 import 'package:food_delivery/controllers/recommended_product_controller.dart';
 import 'package:food_delivery/models/products_model.dart';
+import 'package:food_delivery/routes/routes_helper.dart';
 import 'package:food_delivery/utils/app_constants.dart';
 import 'package:food_delivery/utils/colors.dart';
 import 'package:food_delivery/utils/dimensions.dart';
@@ -49,14 +50,16 @@ class _FoodPageBodyState extends State<FoodPageBody>{
       //Slider section
       GetBuilder<PopularProductController>(builder:(popularProducts){
         return popularProducts.isLoaded?Container(
-        // color: Colors.redAccent,
+        //color: Colors.redAccent,
         height: Dimensions.pageView,
+
         child: PageView.builder(
           controller: pageController,
             itemCount: popularProducts.popularProductList.length,
             itemBuilder: (context, position){
           return _buildPageItem(position, popularProducts.popularProductList[position]);
         }),
+
       ):CircularProgressIndicator(
         color: AppColors.mainColor,
       );
@@ -94,14 +97,19 @@ class _FoodPageBodyState extends State<FoodPageBody>{
             ),
             ],),
       ),
-      //List of food and images
+      //recommended food
+      //List of food and images : Phần các món ăn
       GetBuilder<RecommendedProductController>(builder: (recommendedProduct){
         return recommendedProduct.isLoaded?ListView.builder(
           physics: NeverScrollableScrollPhysics(),
           shrinkWrap: true,
           itemCount: recommendedProduct.recommendedProductList.length,
           itemBuilder: (context, index){
-          return Container(
+          return GestureDetector(
+            onTap: (){
+              Get.toNamed(RouteHelper.getRecommendedFood(index));
+            },
+            child: Container(
             margin: EdgeInsets.only(left: Dimensions.width20, right: Dimensions.width20, bottom: Dimensions.height10),
             child: Row(
               children: [
@@ -167,7 +175,8 @@ class _FoodPageBodyState extends State<FoodPageBody>{
                   ))
               ],
             ),
-          );
+          ),
+        );
       }):CircularProgressIndicator(
           color: AppColors.mainColor,
         );
@@ -204,7 +213,11 @@ class _FoodPageBodyState extends State<FoodPageBody>{
       transform: matrix,
       child : Stack(  // Ngăn xếp
       children: [
-          Container(
+        GestureDetector(
+          onTap: (){
+            Get.toNamed(RouteHelper.getPopularFood(index));
+          },
+          child : Container(
             height : Dimensions.pageViewContainer,
             margin:  EdgeInsets.only(left: Dimensions.width10, right: Dimensions.width10),
             decoration: BoxDecoration( // Bán kính đường viền
@@ -218,6 +231,7 @@ class _FoodPageBodyState extends State<FoodPageBody>{
               )
           ),
           ),
+        ),
           Align(
             alignment: Alignment.bottomCenter,
             child : Container(

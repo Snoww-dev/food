@@ -1,25 +1,36 @@
 import 'package:flutter/material.dart';
+import 'package:food_delivery/controllers/recommended_product_controller.dart';
+import 'package:food_delivery/routes/routes_helper.dart';
+import 'package:food_delivery/utils/app_constants.dart';
 import 'package:food_delivery/utils/colors.dart';
 import 'package:food_delivery/utils/dimensions.dart';
 import 'package:food_delivery/widgets/app_icon.dart';
 import 'package:food_delivery/widgets/big_text.dart';
 import 'package:food_delivery/widgets/expandable_text_widget.dart';
-
+import 'package:get/get.dart';
 class RecommendedFoodDetail extends StatelessWidget {
-  const RecommendedFoodDetail({Key? key}): super(key: key);
+  final int pageId;
+  const RecommendedFoodDetail({Key? key, required this.pageId}): super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    var product = Get.find<RecommendedProductController>().recommendedProductList[pageId];
     return Scaffold(
       backgroundColor: Colors.white,
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
+            automaticallyImplyLeading: false,
             toolbarHeight: 70,
             title: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                AppIcon(icon: Icons.clear),
+                GestureDetector(
+                  onTap: (){
+                    Get.toNamed(RouteHelper.getInitial());
+                  },
+                  child: AppIcon(icon: Icons.clear),
+                ),
                 AppIcon(icon: Icons.shopping_cart_outlined)
               ],
             ),
@@ -42,8 +53,8 @@ class RecommendedFoodDetail extends StatelessWidget {
             backgroundColor: AppColors.yelowColor,
             expandedHeight: 300,
             flexibleSpace: FlexibleSpaceBar(
-              background: Image.asset(
-                "assets/image/thucan1.jpg",
+              background: Image.network(
+                AppConstants.BASE_URL+ AppConstants.UPLOAD_URL+product.img!,
                 width: double.maxFinite,
                 fit: BoxFit.cover,
               ),
@@ -53,7 +64,7 @@ class RecommendedFoodDetail extends StatelessWidget {
             child: Column(
               children: [
                 Container(
-                  child: ExpandableTextWidget(text :"Cánh gà rán là món ăn phổ biến trong các bữa tiệc và các buổi tụ họp gia đình. Cánh gà sau khi được tẩm ướp kỹ lưỡng sẽ được lăn qua bột và chiên giòn. Với lớp da giòn tan bên ngoài và phần thịt mềm bên trong, cánh gà rán là món ăn yêu thích của nhiều người, thường được ăn kèm với các loại sốt như sốt BBQ, sốt phô mai, hay sốt chua ngọt."),
+                  child: ExpandableTextWidget(text:product.description!),
                   margin: EdgeInsets.only(left: Dimensions.width20, right: Dimensions.width20),
                 )
               ],
@@ -79,7 +90,7 @@ class RecommendedFoodDetail extends StatelessWidget {
                   iconColor: Colors.white,
                   backgroundColor: AppColors.mainColor,
                   icon: Icons.remove,),
-                BigText(text: "\30.000 " + " X " + " 0 ", color : AppColors.mainBlackColor, size: Dimensions.font26,),
+                BigText(text: " ${product.price!}  X  0 ", color : AppColors.mainBlackColor, size: Dimensions.font26,),
                 AppIcon(
                   iconSize: Dimensions.iconSize24,
                   iconColor: Colors.white,

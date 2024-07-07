@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:food_delivery/controllers/popular_product_controller.dart';
 import 'package:food_delivery/pages/home/main_food_page.dart';
+import 'package:food_delivery/utils/app_constants.dart';
 import 'package:food_delivery/utils/colors.dart';
 import 'package:food_delivery/utils/dimensions.dart';
 import 'package:food_delivery/widgets/app_column.dart';
@@ -9,10 +11,14 @@ import 'package:food_delivery/widgets/expandable_text_widget.dart';
 import 'package:get/get.dart';
 
 class PopularFoodDetail extends StatelessWidget {
-  const PopularFoodDetail({Key? key}): super(key: key);
+  final int pageId;
+  const PopularFoodDetail({Key? key, required this.pageId}): super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    var product= Get.find<PopularProductController>().popularProductList[pageId];
+    //print("page is id"+pageId.toString());
+    //print("product name is"+product.name.toString());
     return Scaffold(
       backgroundColor: Colors.white,
       body: Stack(
@@ -27,9 +33,10 @@ class PopularFoodDetail extends StatelessWidget {
               decoration: BoxDecoration(
                 image: DecorationImage(
                   fit: BoxFit.cover,
-                  image: AssetImage(
-                    "assets/image/thucan1.jpg"
-                  ) )
+                  image: NetworkImage(
+                    AppConstants.BASE_URL+AppConstants.UPLOAD_URL+product.img!
+                  )
+                )
               ),
             )),
           //icon widgets
@@ -67,18 +74,18 @@ class PopularFoodDetail extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                AppColumn(text: "Cánh gà chiên xù",),
+                AppColumn(text:product.name!),
                 SizedBox(height: Dimensions.height20,),
                 BigText(text: "Đề xuất"),
                 SizedBox(height: Dimensions.height20,),
-                Expanded(child:SingleChildScrollView(child:  ExpandableTextWidget(text: "Cánh gà rán là món ăn phổ biến trong các bữa tiệc và các buổi tụ họp gia đình. Cánh gà sau khi được tẩm ướp kỹ lưỡng sẽ được lăn qua bột và chiên giòn. Với lớp da giòn tan bên ngoài và phần thịt mềm bên trong, cánh gà rán là món ăn yêu thích của nhiều người, thường được ăn kèm với các loại sốt như sốt BBQ, sốt phô mai, hay sốt chua ngọt."))),
+                Expanded(child:SingleChildScrollView(child:  ExpandableTextWidget(text:product.description!))),
               ],
             ),
           )),
         ],
       ),
       bottomNavigationBar: Container(
-        height: Dimensions.bottomHeightBar,  // Có vấn đề về kích thước ( co the de la 120)
+        height: 120,  // Có vấn đề về kích thước ( co the de la 120) -> Dimensions.bottomHeightBar,
         padding: EdgeInsets.only(top:Dimensions.height30, bottom: Dimensions.height30,  left: Dimensions.width20, right: Dimensions.width20),
         decoration: BoxDecoration(
           color: AppColors.buttonBackgroundColor,
@@ -109,7 +116,7 @@ class PopularFoodDetail extends StatelessWidget {
             ),
             Container(
               padding: EdgeInsets.only(top: Dimensions.height20, bottom: Dimensions.height20, left: Dimensions.width20, right: Dimensions.width20),
-              child: BigText(text: "\10.000 | Thêm vào giỏ hàng", color: Colors.white),
+              child: BigText(text: "${product.price!} | Thêm vào giỏ hàng", color: Colors.white),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(Dimensions.radius20),
                 color: AppColors.mainColor
