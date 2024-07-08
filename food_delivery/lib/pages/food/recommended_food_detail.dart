@@ -37,7 +37,7 @@ class RecommendedFoodDetail extends StatelessWidget {
             bottom: PreferredSize(
               preferredSize: Size.fromHeight(20),
               child: Container(
-                child: Center(child:BigText(size: Dimensions.font26,text: "Cánh gà chiên xù"),),
+                child: Center(child:BigText(size: Dimensions.font26,text:product.name!),),
                 width: double.maxFinite,
                 padding: EdgeInsets.only(top: 5, bottom: 10),
                 decoration: BoxDecoration(
