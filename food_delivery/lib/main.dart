@@ -23,6 +23,7 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
+
       home: MainFoodPage(),
       initialRoute: RouteHelper.initial,
       getPages: RouteHelper.routes,
