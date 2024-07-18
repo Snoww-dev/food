@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:food_delivery/controllers/cart_controller.dart';
 import 'package:food_delivery/controllers/popular_product_controller.dart';
 import 'package:food_delivery/controllers/recommended_product_controller.dart';
-import 'package:food_delivery/pages/cart/cart_page.dart';
 import 'package:food_delivery/routes/routes_helper.dart';
 import 'package:food_delivery/utils/app_constants.dart';
 import 'package:food_delivery/utils/colors.dart';
@@ -37,19 +36,21 @@ class RecommendedFoodDetail extends StatelessWidget {
                 ),
                 //AppIcon(icon: Icons.shopping_cart_outlined)
                 GetBuilder<PopularProductController>(builder: (controller){
-                  return Stack(
+                  return GestureDetector(
+                    onTap:(){
+                      if(controller.totalItems>=1)
+                        Get.toNamed(RouteHelper.getCartPage());
+                    },
+                    child:Stack(
                     children: [
                       AppIcon(icon: Icons.shopping_cart_outlined),
                       Get.find<PopularProductController>().totalItems>=1?
                         Positioned(
                           right: 0, top: 0,
-                          child : GestureDetector(
-                            onTap: (){
-                              Get.to(()=>CartPage());
-                            },
+                          
                             child: AppIcon(icon: Icons.circle, size: 20,
                             iconColor: Colors.transparent,
-                            backgroundColor: AppColors.mainColor,),)):
+                            backgroundColor: AppColors.mainColor,),):
                             Container(),
                       Get.find<PopularProductController>().totalItems>=1?
                         Positioned(
@@ -60,7 +61,7 @@ class RecommendedFoodDetail extends StatelessWidget {
                           ):
                             Container(),
                     ],
-                  );
+                  ));
                 })
               ],
             ),
