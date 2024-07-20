@@ -15,10 +15,11 @@ class Dimensions{
   static double height45 = screenHeight/18.76;
 
   // dynamic width padding and margin
-  static double width10 = screenHeight/84.4;
-  static double width15 = screenHeight/56.27;
-  static double width20 = screenHeight/42.2;
-  static double width30 = screenHeight/28.13;
+  static double width10 = screenWidth/84.4;
+  static double width15 = screenWidth/56.27;
+  static double width20 = screenWidth/42.2;
+  static double width30 = screenWidth/28.13;
+  static double width45 = screenHeight/18.76;
 
   // font size
   static double font16 = screenHeight/52.75;
@@ -43,4 +44,7 @@ class Dimensions{
 
   // bottom height
   static double bottomHeightBar = screenHeight/7.03;
+
+  //splash screen dimentions
+  static double splashImg = screenHeight/3.38;
 }

@@ -29,9 +29,10 @@ class _MainFoodPageState extends State<MainFoodPage> {
                     Column(
                       children: [
                         BigText(text: "YumHub", color: AppColors.mainColor),
-                        Row(children: [
-                          SmallText(text: "Thành Phố", color: AppColors.mainBlackColor),
-                          Icon(Icons.arrow_drop_down_rounded)
+                        Row(
+                          children: [
+                            SmallText(text: "      Thành Phố", color: Colors.black45),
+                            Icon(Icons.arrow_drop_down_rounded)
                         ],)
                       ],
                     ),
