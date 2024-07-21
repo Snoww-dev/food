@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:food_delivery/base/no_data_page.dart';
 import 'package:food_delivery/controllers/cart_controller.dart';
 import 'package:food_delivery/controllers/popular_product_controller.dart';
 import 'package:food_delivery/controllers/recommended_product_controller.dart';
@@ -47,7 +48,8 @@ class CartPage extends StatelessWidget {
                 )
               ],
           )),
-          Positioned(
+          GetBuilder<CartController>(builder: (_cartController){
+            return _cartController.getItems.length>0?Positioned(
             top: Dimensions.height20*5,
             left: Dimensions.width20,
             right: Dimensions.width20,
@@ -79,7 +81,14 @@ class CartPage extends StatelessWidget {
                                   var recommendedIndex = Get.find<RecommendedProductController>()
                                     .recommendedProductList
                                     .indexOf(_cartList[index].product!);
-                                  Get.toNamed(RouteHelper.getRecommendedFood(recommendedIndex, "cartpage"));
+                                  if(recommendedIndex<0){
+                                    Get.snackbar("Lịch sử sản phẩm", "Xem l sản phẩm không có sẵn cho các sản phẩm lịch sử!",
+                                      backgroundColor: AppColors.mainColor,
+                                      colorText: Colors.white,
+                                    );
+                                  }else{
+                                    Get.toNamed(RouteHelper.getRecommendedFood(recommendedIndex, "cartpage"));
+                                  }
                                 }
                               },
                               child: Container(
@@ -148,7 +157,8 @@ class CartPage extends StatelessWidget {
                 },
                 
                 ),
-          )))
+          ))):NoDataPage(text: "Giỏ của bạn trống!");
+          })
         ],
       ),
       bottomNavigationBar: GetBuilder<CartController>(builder: (cartController){
@@ -162,7 +172,7 @@ class CartPage extends StatelessWidget {
             topRight: Radius.circular(Dimensions.radius20*2)
           )
         ),
-        child: Row(
+        child: cartController.getItems.length>0?Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Container(
@@ -197,7 +207,7 @@ class CartPage extends StatelessWidget {
                 ),
             ))
           ],
-        ),
+        ):Container(),
       );
       },)
     );
