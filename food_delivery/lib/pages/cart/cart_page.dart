@@ -79,7 +79,14 @@ class CartPage extends StatelessWidget {
                                   var recommendedIndex = Get.find<RecommendedProductController>()
                                     .recommendedProductList
                                     .indexOf(_cartList[index].product!);
-                                  Get.toNamed(RouteHelper.getRecommendedFood(recommendedIndex, "cartpage"));
+                                  if(recommendedIndex<0){
+                                    Get.snackbar("Lịch sử sản phẩm", "Xem lại sản phẩm không có sẵn cho sản phẩm lịch sử!",
+                                      backgroundColor: AppColors.mainColor,
+                                      colorText: Colors.white,
+                                    );
+                                  }else{
+                                    Get.toNamed(RouteHelper.getRecommendedFood(recommendedIndex, "cartpage"));
+                                  }
                                 }
                               },
                               child: Container(
