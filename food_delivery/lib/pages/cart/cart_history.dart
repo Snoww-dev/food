@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:food_delivery/base/no_data_page.dart';
 import 'package:food_delivery/controllers/cart_controller.dart';
 import 'package:food_delivery/models/cart_model.dart';
 import 'package:food_delivery/routes/routes_helper.dart';
@@ -41,7 +42,16 @@ class CartHistory extends StatelessWidget {
     List<int> itemsPerOrder = cartItemsPerOrderToList();
 
     var listCounter = 0;
-
+    Widget timeWidget(int index){
+      var outputDate = DateTime.now().toString();
+      if(index<getCartHistoryList.length){
+        DateTime parseDate = DateFormat("yyyy-MM-dd HH:mm:ss").parse(getCartHistoryList[listCounter].time!);
+        var inputDate = DateTime.parse(parseDate.toString());
+        var outputFormat = DateFormat("MM/dd/yyyy hh:mm a");
+        outputDate = outputFormat.format(inputDate);
+      }
+      return BigText(text: outputDate);
+    }
     return Scaffold(
       body: Column(
         children: [
@@ -61,7 +71,8 @@ class CartHistory extends StatelessWidget {
               ],
             ),
           ),
-          Expanded(child: Container(
+          GetBuilder<CartController>(builder: (_cartController){
+            return _cartController.getCartHistoryList().length>0?Expanded(child: Container(
             
             margin: EdgeInsets.only(
               top: Dimensions.height20,
@@ -79,13 +90,7 @@ class CartHistory extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        ((){
-                          DateTime parseDate = DateFormat("yyyy-MM-dd HH:mm:ss").parse(getCartHistoryList[listCounter].time!);
-                          var inputDate = DateTime.parse(parseDate.toString());
-                          var outputFormat = DateFormat("MM/dd/yyyy hh:mm a");
-                          var outputDate = outputFormat.format(inputDate);
-                          return BigText(text: outputDate);
-                        }()),
+                        timeWidget(listCounter),
                         SizedBox(height: Dimensions.height10,),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -157,7 +162,15 @@ class CartHistory extends StatelessWidget {
                   )
               ],
             ),)
-          ))
+          )):
+          SizedBox(
+            height: MediaQuery.of(context).size.height/1.5,
+            child: const Center(
+              child: NoDataPage(
+                text: "Bạn chưa mua bất cứ thứ gì cho đến nay!",
+                imgPath: "assets/image/empty_box.png",),
+            ));
+          })
         ],
       ),
     );
