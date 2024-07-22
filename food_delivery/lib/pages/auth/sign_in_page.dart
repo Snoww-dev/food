@@ -1,11 +1,16 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:food_delivery/base/custom_loader.dart';
 import 'package:food_delivery/pages/auth/sign_up_page.dart';
+import 'package:food_delivery/routes/routes_helper.dart';
 import 'package:food_delivery/utils/colors.dart';
 import 'package:food_delivery/utils/dimensions.dart';
 import 'package:food_delivery/widgets/app_text_field.dart';
 import 'package:food_delivery/widgets/big_text.dart';
 import 'package:get/get.dart';
+
+import '../../base/show_custom_message.dart';
+import '../../controllers/auth_controller.dart';
 
 class SignInPage extends StatelessWidget {
   const SignInPage({Key? key}) : super(key: key);
@@ -14,12 +19,41 @@ class SignInPage extends StatelessWidget {
   Widget build(BuildContext context) {
     var emailController = TextEditingController();
     var passwordController = TextEditingController();
-    var nameController = TextEditingController();
-    var phoneController = TextEditingController();
+    
+    void _login(AuthController authController){
+      
+      String email= emailController.text.trim();
+      String password = passwordController.text.trim();
+
+      if(email.isEmpty){
+        showCustomSnackBar("Nhập địa chỉ email của bạn", title: "Địa chỉ Email");
+
+      }else if(!GetUtils.isEmail(email)){
+        showCustomSnackBar("Nhập địa chỉ email không hợp lệ", title: "Địa chỉ email hợp lệ");
+
+      }else if(password.isEmpty){
+        showCustomSnackBar("Nhập mật khẩu của bạn", title: "Mật khẩu");
+
+      }else if(password.length<6){
+        showCustomSnackBar("Mật khẩu không thể ít hơn 6 ký tự", title: "Mật khẩu");
+
+      }else{
+      
+        authController.login(email, password).then((status){
+          if(status.isSuccess){
+            Get.toNamed(RouteHelper.getInitial());
+            
+          }else{
+            showCustomSnackBar(status.message);
+          }
+        });
+      }
+    }
     
     return Scaffold(
       backgroundColor: Colors.white,
-      body: SingleChildScrollView(
+      body: GetBuilder<AuthController>(builder: (authController){
+        return !authController.isLoading?SingleChildScrollView(
         physics: BouncingScrollPhysics(),
         child: Column(
           children: [
@@ -71,7 +105,7 @@ class SignInPage extends StatelessWidget {
             //MK
             AppTextField(
               hintText: "Mật khẩu",
-              icon: Icons.password_sharp,
+              icon: Icons.password_sharp, isObscure: true,
               textController: passwordController),
             SizedBox(height: Dimensions.height20,),
             
@@ -95,18 +129,23 @@ class SignInPage extends StatelessWidget {
             ),
             SizedBox(height: Dimensions.screenHeight*0.05,),
             // Nút đăng nhập
-            Container(
-              width: Dimensions.screenWidth/2,
-              height: Dimensions.screenHeight/13,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(Dimensions.radius30),
-                color: AppColors.mainColor
-              ),
-              child: Center(
-                child: BigText(
-                  text: "Đăng nhập",
-                  size: Dimensions.font20+Dimensions.font20/2,
-                  color: Colors.white,
+            GestureDetector(
+              onTap: (){
+                _login(authController);
+              },
+              child: Container(
+                width: Dimensions.screenWidth/2,
+                height: Dimensions.screenHeight/13,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(Dimensions.radius30),
+                  color: AppColors.mainColor
+                ),
+                child: Center(
+                  child: BigText(
+                    text: "Đăng nhập",
+                    size: Dimensions.font20+Dimensions.font20/2,
+                    color: Colors.white,
+                  ),
                 ),
               ),
             ),
@@ -135,7 +174,8 @@ class SignInPage extends StatelessWidget {
             
           ],
         ),
-      ),
+      ):CustomLoader();
+      })
     );
   }
 }
