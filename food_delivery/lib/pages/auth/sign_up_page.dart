@@ -1,6 +1,8 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:food_delivery/base/custom_loader.dart';
 import 'package:food_delivery/base/show_custom_message.dart';
+import 'package:food_delivery/controllers/auth_controller.dart';
 import 'package:food_delivery/models/signup_body_model.dart';
 import 'package:food_delivery/utils/colors.dart';
 import 'package:food_delivery/utils/dimensions.dart';
@@ -13,6 +15,7 @@ class SignUpPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    
     var emailController = TextEditingController();
     var passwordController = TextEditingController();
     var nameController = TextEditingController();
@@ -22,7 +25,7 @@ class SignUpPage extends StatelessWidget {
       "f.jpg",
       "g.jpg"
     ];
-    void _registration(){
+    void _registration(AuthController authController){
       String name = nameController.text.trim();
       String phone = phoneController.text.trim();
       String email= emailController.text.trim();
@@ -46,18 +49,25 @@ class SignUpPage extends StatelessWidget {
         showCustomSnackBar("Mật khẩu không thể ít hơn 6 ký tự", title: "Mật khẩu");
 
       }else{
-        showCustomSnackBar("Tất cả đều tốt", title: "Hoàn hảo");
+        
         SignUpBody signUpBody = SignUpBody(
           name: name,
           phone: phone,
           email: email,
           password: password);
-        print(signUpBody.toString());
+        authController.registration(signUpBody).then((status){
+          if(status.isSuccess){
+            print("Đăng ký thành công");
+          }else{
+            showCustomSnackBar(status.message);
+          }
+        });
       }
     }
     return Scaffold(
       backgroundColor: Colors.white,
-      body: SingleChildScrollView(
+      body: GetBuilder<AuthController>(builder:(_authController){
+        return !_authController.isLoading?SingleChildScrollView(
         physics: BouncingScrollPhysics(),
         child: Column(
           children: [
@@ -83,7 +93,7 @@ class SignUpPage extends StatelessWidget {
             //MK
             AppTextField(
               hintText: "Mật khẩu",
-              icon: Icons.password_sharp,
+              icon: Icons.password_sharp, isObscure: true,
               textController: passwordController),
             SizedBox(height: Dimensions.height20,),
             //Ten
@@ -101,7 +111,7 @@ class SignUpPage extends StatelessWidget {
         
             GestureDetector(
               onTap: (){
-                _registration();
+                _registration(_authController);
               },
               child: Container(
                 width: Dimensions.screenWidth/2,
@@ -154,7 +164,8 @@ class SignUpPage extends StatelessWidget {
             )
           ],
         ),
-      ),
+      ):const CustomLoader();
+      })
     );
 
     
