@@ -121,7 +121,7 @@ class SignInPage extends StatelessWidget {
                 ),
                 children: [
                   TextSpan(
-                    recognizer: TapGestureRecognizer()..onTap=()=>Get.to(()=>SignUpPage()),
+                    recognizer: TapGestureRecognizer()..onTap=()=>Get.to(()=>SignUpPage(), transition: Transition.fade),
                   text: " Tạo tài khoản",
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
