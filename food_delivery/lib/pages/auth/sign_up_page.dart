@@ -1,6 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:food_delivery/base/show_custom_message.dart';
+import 'package:food_delivery/models/signup_body_model.dart';
 import 'package:food_delivery/utils/colors.dart';
 import 'package:food_delivery/utils/dimensions.dart';
 import 'package:food_delivery/widgets/app_text_field.dart';
@@ -36,7 +37,7 @@ class SignUpPage extends StatelessWidget {
         showCustomSnackBar("Nhập địa chỉ email của bạn", title: "Địa chỉ Email");
 
       }else if(!GetUtils.isEmail(email)){
-        showCustomSnackBar("Nhập địa chỉ email hợp lệ", title: "Địa chỉ email hợp lệ");
+        showCustomSnackBar("Nhập địa chỉ email không hợp lệ", title: "Địa chỉ email hợp lệ");
 
       }else if(password.isEmpty){
         showCustomSnackBar("Nhập mật khẩu của bạn", title: "Mật khẩu");
@@ -46,7 +47,12 @@ class SignUpPage extends StatelessWidget {
 
       }else{
         showCustomSnackBar("Tất cả đều tốt", title: "Hoàn hảo");
-
+        SignUpBody signUpBody = SignUpBody(
+          name: name,
+          phone: phone,
+          email: email,
+          password: password);
+        print(signUpBody.toString());
       }
     }
     return Scaffold(
