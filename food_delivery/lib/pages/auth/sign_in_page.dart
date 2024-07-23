@@ -17,19 +17,16 @@ class SignInPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var emailController = TextEditingController();
+    var phoneController = TextEditingController();
     var passwordController = TextEditingController();
     
     void _login(AuthController authController){
       
-      String email= emailController.text.trim();
+      String phone= phoneController.text.trim();
       String password = passwordController.text.trim();
 
-      if(email.isEmpty){
-        showCustomSnackBar("Nhập địa chỉ email của bạn", title: "Địa chỉ Email");
-
-      }else if(!GetUtils.isEmail(email)){
-        showCustomSnackBar("Nhập địa chỉ email không hợp lệ", title: "Địa chỉ email hợp lệ");
+      if(phone.isEmpty){
+        showCustomSnackBar("Nhập số điện thoại của bạn", title: "Số điện thoại");
 
       }else if(password.isEmpty){
         showCustomSnackBar("Nhập mật khẩu của bạn", title: "Mật khẩu");
@@ -39,7 +36,7 @@ class SignInPage extends StatelessWidget {
 
       }else{
       
-        authController.login(email, password).then((status){
+        authController.login(phone, password).then((status){
           if(status.isSuccess){
             Get.toNamed(RouteHelper.getInitial());
             
@@ -98,9 +95,9 @@ class SignInPage extends StatelessWidget {
             SizedBox(height: Dimensions.height20,),
             // Email
             AppTextField(
-              hintText: "Email",
-              icon: Icons.email,
-              textController: emailController),
+              hintText: "Phone",
+              icon: Icons.phone,
+              textController: phoneController),
             SizedBox(height: Dimensions.height20,),
             //MK
             AppTextField(

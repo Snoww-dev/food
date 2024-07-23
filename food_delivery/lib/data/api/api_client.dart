@@ -1,16 +1,18 @@
 import 'package:food_delivery/utils/app_constants.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 //Định nghĩa một client API cơ bản với các thiết lập header và xử lý yêu cầu GET,
 //có khả năng bắt và xử lý lỗi nếu có sự cố xảy ra khi gửi yêu cầu.
 class ApiClient extends GetConnect implements GetxService {
   late String token;
   final String appBaseUrl;
+  late SharedPreferences sharedPreferences;
 
   late Map<String, String> _mainHeaders;
 
-  ApiClient({required this.appBaseUrl}) {
-    token = AppConstants.TOKEN; // Gán giá trị mặc định cho token
+  ApiClient({required this.appBaseUrl, required this.sharedPreferences}) {
+    token = sharedPreferences.getString(AppConstants.TOKEN)??"";
     baseUrl = appBaseUrl;
     timeout = Duration(seconds: 30);
     _mainHeaders = {
@@ -27,9 +29,11 @@ class ApiClient extends GetConnect implements GetxService {
   }
 
 
-  Future<Response> getData(String uri,) async {
+  Future<Response> getData(String uri, {Map<String, String>? headers}) async {
     try {
-      Response response = await get(uri);
+      Response response = await get(uri,
+      headers: headers??_mainHeaders
+      );
       return response;
     } catch (e) {
       return Response(statusCode: 1, statusText: e.toString());

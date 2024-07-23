@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:food_delivery/base/custom_loader.dart';
 import 'package:food_delivery/controllers/auth_controller.dart';
 import 'package:food_delivery/controllers/cart_controller.dart';
+import 'package:food_delivery/controllers/user_controller.dart';
 import 'package:food_delivery/routes/routes_helper.dart';
 import 'package:food_delivery/utils/colors.dart';
 import 'package:food_delivery/utils/dimensions.dart';
@@ -13,6 +15,11 @@ class AccountPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final bool _userLoggedIn = Get.find<AuthController>().userLoggedIn();
+    if(_userLoggedIn){
+      Get.find<UserController>().getUserInfo();
+      //print("Người dùng đã đăng nhập");
+    }
     return Scaffold(
       appBar: AppBar(
         backgroundColor: AppColors.mainColor,
@@ -22,7 +29,8 @@ class AccountPage extends StatelessWidget {
           ),
         ),
       ),
-      body: Container(
+      body: GetBuilder<UserController>(builder: (userController){
+        return _userLoggedIn?(userController.isLoading?Container(
         width: double.maxFinite,
         margin: EdgeInsets.only(top: Dimensions.height20),
         child: Column(
@@ -42,7 +50,7 @@ class AccountPage extends StatelessWidget {
                 iconColor: Colors.white,
                 iconSize: Dimensions.height10*5/2,
                 size: Dimensions.height10*5,),
-              bigText: BigText(text: "Tên Tớ",)),
+              bigText: BigText(text:userController.userModel.name,)),
             SizedBox(height: Dimensions.height20,),
             //Sđt
             AccountWidget(
@@ -51,7 +59,7 @@ class AccountPage extends StatelessWidget {
                 iconColor: Colors.white,
                 iconSize: Dimensions.height10*5/2,
                 size: Dimensions.height10*5,),
-              bigText: BigText(text: "013131234",)),
+              bigText: BigText(text:userController.userModel.phone,)),
             SizedBox(height: Dimensions.height20,),
             //Email
             AccountWidget(
@@ -60,7 +68,7 @@ class AccountPage extends StatelessWidget {
                 iconColor: Colors.white,
                 iconSize: Dimensions.height10*5/2,
                 size: Dimensions.height10*5,),
-              bigText: BigText(text: "email@gmail.com",)),
+              bigText: BigText(text:userController.userModel.email,)),
             SizedBox(height: Dimensions.height20,),
             //Địa chỉ
             AccountWidget(
@@ -104,7 +112,54 @@ class AccountPage extends StatelessWidget {
           
           ],
         ),
-      ),
+        ):CustomLoader()
+      ):Container(
+                  child: Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Container(
+                          width: double.maxFinite,
+                          height: Dimensions.height20 * 20,
+                          margin: EdgeInsets.only(
+                              left: Dimensions.width20,
+                              right: Dimensions.width20),
+                          decoration: BoxDecoration(
+                              borderRadius:
+                                  BorderRadius.circular(Dimensions.radius20),
+                              image: DecorationImage(
+                                  fit: BoxFit.cover,
+                                  image:
+                                      AssetImage("assets/image/signin.png"))),
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            Get.toNamed(RouteHelper.getSignInPage());
+                          },
+                          child: Container(
+                            width: double.maxFinite,
+                            height: Dimensions.height20*3,
+                            margin: EdgeInsets.only(
+                                left: Dimensions.width20,
+                                right: Dimensions.width20),
+                            decoration: BoxDecoration(
+                              color: AppColors.mainColor,
+                              borderRadius:
+                                  BorderRadius.circular(Dimensions.radius20),
+                            ),
+                            child: Center(
+                                child: BigText(
+                              text: "Đăng nhập",
+                              color: Colors.white,
+                              size: Dimensions.font26,
+                            )),
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                );
+      })
     );
   }
 }
