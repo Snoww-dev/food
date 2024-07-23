@@ -1,31 +1,42 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:food_delivery/base/custom_loader.dart';
-import 'package:food_delivery/pages/auth/sign_up_page.dart';
-import 'package:food_delivery/routes/routes_helper.dart';
+import 'package:food_delivery/base/show_custom_message.dart';
+import 'package:food_delivery/controllers/auth_controller.dart';
+import 'package:food_delivery/models/signup_body_model.dart';
 import 'package:food_delivery/utils/colors.dart';
 import 'package:food_delivery/utils/dimensions.dart';
 import 'package:food_delivery/widgets/app_text_field.dart';
 import 'package:food_delivery/widgets/big_text.dart';
 import 'package:get/get.dart';
 
-import '../../base/show_custom_message.dart';
-import '../../controllers/auth_controller.dart';
-
-class SignInPage extends StatelessWidget {
-  const SignInPage({Key? key}) : super(key: key);
+class SignUpPage extends StatelessWidget {
+  const SignUpPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    
     var emailController = TextEditingController();
     var passwordController = TextEditingController();
-    
-    void _login(AuthController authController){
-      
+    var nameController = TextEditingController();
+    var phoneController = TextEditingController();
+    var signUpImages = [
+      "t.jpg",
+      "f.jpg",
+      "g.jpg"
+    ];
+    void _registration(AuthController authController){
+      String name = nameController.text.trim();
+      String phone = phoneController.text.trim();
       String email= emailController.text.trim();
       String password = passwordController.text.trim();
 
-      if(email.isEmpty){
+      if(name.isEmpty){
+        showCustomSnackBar("Nhập tên của bạn", title: "Tên");
+      }else if(phone.isEmpty){
+        showCustomSnackBar("Nhập số điện thoại của bạn", title: "Số điện thoại");
+
+      }else if(email.isEmpty){
         showCustomSnackBar("Nhập địa chỉ email của bạn", title: "Địa chỉ Email");
 
       }else if(!GetUtils.isEmail(email)){
@@ -38,21 +49,24 @@ class SignInPage extends StatelessWidget {
         showCustomSnackBar("Mật khẩu không thể ít hơn 6 ký tự", title: "Mật khẩu");
 
       }else{
-      
-        authController.login(email, password).then((status){
+        
+        SignUpBody signUpBody = SignUpBody(
+          name: name,
+          phone: phone,
+          email: email,
+          password: password);
+        authController.registration(signUpBody).then((status){
           if(status.isSuccess){
-            Get.toNamed(RouteHelper.getInitial());
-            
+            print("Đăng ký thành công");
           }else{
             showCustomSnackBar(status.message);
           }
         });
       }
     }
-    
     return Scaffold(
       backgroundColor: Colors.white,
-      body: GetBuilder<AuthController>(builder: (_authController){
+      body: GetBuilder<AuthController>(builder:(_authController){
         return !_authController.isLoading?SingleChildScrollView(
         physics: BouncingScrollPhysics(),
         child: Column(
@@ -70,32 +84,6 @@ class SignInPage extends StatelessWidget {
                 ),
               ),
             ),
-            //Xin chèo
-            Container(
-              margin: EdgeInsets.only(left: Dimensions.width20),
-              width: double.maxFinite,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    "Xin chào",
-                    style: TextStyle(
-                      fontSize: Dimensions.font20*3+Dimensions.font20/2,
-                      fontWeight: FontWeight.bold
-                    ),
-                  ),
-                  Text(
-                    "Đăng nhập vào tài khoản của bạn",
-                    style: TextStyle(
-                      fontSize: Dimensions.font20,
-                      //fontWeight: FontWeight.bold,
-                      color: Colors.grey[500]
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            SizedBox(height: Dimensions.height20,),
             // Email
             AppTextField(
               hintText: "Email",
@@ -108,30 +96,22 @@ class SignInPage extends StatelessWidget {
               icon: Icons.password_sharp, isObscure: true,
               textController: passwordController),
             SizedBox(height: Dimensions.height20,),
-            
-        
-            
+            //Ten
+            AppTextField(
+              hintText: "Tên",
+              icon: Icons.person,
+              textController: nameController),
             SizedBox(height: Dimensions.height20,),
-            Row(
-              children: [
-                Expanded(child: Container()),
-                RichText(
-                text: TextSpan(
-                  text: "Đăng nhập vào tài khoản của bạn",
-                  style: TextStyle(
-                    color: Colors.grey[500],
-                    fontSize: Dimensions.font20
-                  )
-                  ),
-                ),
-                SizedBox(width: Dimensions.width20,)
-              ],
-            ),
-            SizedBox(height: Dimensions.screenHeight*0.05,),
-            // Nút đăng nhập
+            //Sdt
+            AppTextField(
+              hintText: "Sđt",
+              icon: Icons.phone,
+              textController: phoneController),
+            SizedBox(height: Dimensions.height20,),
+        
             GestureDetector(
               onTap: (){
-                _login(_authController);
+                _registration(_authController);
               },
               child: Container(
                 width: Dimensions.screenWidth/2,
@@ -142,41 +122,52 @@ class SignInPage extends StatelessWidget {
                 ),
                 child: Center(
                   child: BigText(
-                    text: "Đăng nhập",
+                    text: "Đăng ký",
                     size: Dimensions.font20+Dimensions.font20/2,
                     color: Colors.white,
                   ),
                 ),
               ),
             ),
-            SizedBox(height: Dimensions.screenHeight*0.05,),
-            // Tạo tài khoản
+            SizedBox(height: Dimensions.height10,),
             RichText(
               text: TextSpan(
-                text: "Không có tài khoản?",
+                recognizer: TapGestureRecognizer()..onTap=()=>Get.back(),
+                text: "Có tài khoản rồi?",
                 style: TextStyle(
                   color: Colors.grey[500],
                   fontSize: Dimensions.font20
-                ),
-                children: [
-                  TextSpan(
-                    recognizer: TapGestureRecognizer()..onTap=()=>Get.to(()=>SignUpPage(), transition: Transition.fade),
-                  text: " Tạo tài khoản",
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: AppColors.mainBlackColor,
-                    fontSize: Dimensions.font20
-                  ),)
-                ]
+                )
               ),
-              
             ),
-            
+            SizedBox(height: Dimensions.screenHeight*0.05,),
+            // Sign up options
+            RichText(
+              text: TextSpan(
+                text: "Đăng ký bằng một trong các phương pháp sau",
+                style: TextStyle(
+                  color: Colors.grey[500],
+                  fontSize: Dimensions.font16
+                )
+              ),
+            ),
+            Wrap(
+              children: List.generate(3, (index)=> Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: CircleAvatar(
+                  radius: Dimensions.radius30,
+                  backgroundImage: AssetImage(
+                    "assets/image/"+signUpImages[index]
+                  ),
+                ),
+              ))
+            )
           ],
         ),
       ):const CustomLoader();
       })
     );
-  }
 
+    
+  }
 }
