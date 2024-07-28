@@ -77,7 +77,9 @@ Install my-project with npm
 
 ## Hướng dẫn sử dụng
 B1: Để có được AIP của ứng dụng này thì phần backend phải được config . Link Backend: https://github.com/Snoww-dev/food-app
+
 B2: Bạn sẽ clone code này về sau khi đã cài đặt backend
+
 B3: Chạy dự án
 
 
