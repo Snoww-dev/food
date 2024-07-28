@@ -59,19 +59,21 @@ Install my-project with npm
   https://www.figma.com/design/UDqS3pnvj7iGFDlrNZNZ4k/Food?node-id=0-1&t=BFEX128FcQ7moh7x-0
 ```
 
-| Họ tên | Id Github     | Công việc                |
+| Họ tên | Id Github     | Công việc (Làm figma)              |
 | :-------- | :------- | :------------------------- |
 | `Phạm Thanh Ánh Tuyết` | `snow-devv` | Trang chủ, Trang chi tiết sản phẩm |
-| `Phạm Minh Tú` | `minhtuzz` |  |
-| `Đồng Phước Đạt` | `Jackspiser` |  |
-| `An` | `an6423` | |
+| `Phạm Minh Tú` | `minhtuzz` | Trang lịch sử sản phẩm, Trang giỏ hàng |
+| `Đồng Phước Đạt` | `Jackspiser` | Trang đăng ký, Trang đăng nhập, Trang địa chỉ giao hàng |
+| `An` | `an6423` | Trang thông tin người dùng, Trang phương thức thanh toán |
 
 #### Code
 
-| Họ tên | Id Github     | Công việc                       |
+| Họ tên | Id Github     | Công việc (Code)                   |
 | :-------- | :------- | :-------------------------------- |
-| `Phạm Thanh Ánh Tuyết` | `snow-devv` | Trang chủ, Trang chi tiết sản phẩm |
-
+| `Phạm Thanh Ánh Tuyết` | `snow-devv` | Trang chủ, Trang chi tiết sản phẩm, Trang giỏ hàng, Trang cập nhật thông tin |
+| `Phạm Minh Tú` | `minhtuzz` | Trang lịch sử sản phẩm |
+| `Đồng Phước Đạt` | `Jackspiser` | Trang đăng ký, Trang đăng nhập |
+| `An` | `an6423` | Trang thông tin người dùng |
 
 
 
