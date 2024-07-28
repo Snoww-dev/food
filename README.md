@@ -73,7 +73,7 @@ Install my-project with npm
 | `Phạm Thanh Ánh Tuyết` | `snow-devv` | Trang chủ, Trang chi tiết sản phẩm, Trang giỏ hàng, Trang cập nhật thông tin |
 | `Phạm Minh Tú` | `minhtuzz` | Trang lịch sử sản phẩm |
 | `Đồng Phước Đạt` | `Jackspiser` | Trang đăng ký, Trang đăng nhập |
-| `An` | `an6423` | Trang thông tin người dùng |
+| `An` | `an6423` | Trang thông tin người dùng, Đăng xuất |
 
 
 
