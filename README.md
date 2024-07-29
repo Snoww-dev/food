@@ -76,7 +76,7 @@ Install my-project with npm
 
 | Họ tên | Id Github     | Công việc (Code)                   |
 | :-------- | :------- | :-------------------------------- |
-| `Phạm Thanh Ánh Tuyết` | `snow-devv` | Trang chủ, Trang chi tiết sản phẩm, Trang giỏ hàng, Trang cập nhật thông tin |
+| `Phạm Thanh Ánh Tuyết` | `snow-devv` | Trang chủ, Trang chi tiết sản phẩm, Trang giỏ hàng, Trang cập nhật thông tin, Trang địa chỉ giao hàng |
 | `Phạm Minh Tú` | `minhtuzz` | Trang lịch sử sản phẩm |
 | `Đồng Phước Đạt` | `Jackspiser` | Trang đăng ký, Trang đăng nhập |
 | `An` | `an6423` | Trang thông tin người dùng, Đăng xuất |
