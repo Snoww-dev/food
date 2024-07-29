@@ -72,7 +72,10 @@ Install my-project with npm
 | `An` | `an6423` | Trang thông tin người dùng, Trang phương thức thanh toán |
 
 #### Code
-
+Demo Youtube
+```http
+  https://www.youtube.com/watch?v=X4eMnKil7g4
+```
 | Họ tên | Id Github     | Công việc (Code)                   |
 | :-------- | :------- | :-------------------------------- |
 | `Phạm Thanh Ánh Tuyết` | `snow-devv` | Trang chủ, Trang chi tiết sản phẩm, Trang giỏ hàng, Trang cập nhật thông tin, Trang địa chỉ giao hàng |
