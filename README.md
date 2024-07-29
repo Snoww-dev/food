@@ -37,7 +37,6 @@ YUMHUB là một ứng dụng tập trung vào các dịch vụ liên quan đế
 
 🍨 Creating new items (Bạn có thể tạo các mặt hàng thực phẩm mới)
 
-🥤 Paypal payment (Đồng bộ thanh toán Paypal với cơ sở dữ liệu)
 
 
 ## Hướng dẫn sử dụng
